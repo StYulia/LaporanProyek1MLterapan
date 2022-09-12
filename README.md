@@ -46,7 +46,7 @@ categorical_features = ['Parking', 'Warehouse', 'Elevator']
 ## Data Preparation
 -	Kita memiiki tiga variable kategori yaitu parking, warehouse, dan elevator. Untuk melakukan proses encoding fitur kategori agar menjadi variable numerik, salah satu teknik yang umum dilakukan adalah teknik one-hot-encoding
 -	Selanjutnya membagi dataset menjadi data train dan data test agar dapat mempertahankan data yang ada menguji seberapa baik generalisasi model terhadap data baru
--	 Kemudia kita perlu melakukan standarisasi pada data train untuk menhindari kebpgpran informasi pada data test
+-	 Kemudia kita perlu melakukan standarisasi pada data train untuk menghindari kebocoran informasi pada data test
 
 ## Modeling
 Pada tahap modelling menggunaka  tiga model yaitu: K-Nearest Neighbor (KNN), Random Forest (RF), dan  Boosting Algorithm.
