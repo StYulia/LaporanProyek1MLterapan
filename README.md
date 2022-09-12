@@ -51,43 +51,55 @@ categorical_features = ['Parking', 'Warehouse', 'Elevator']
 Pada tahap modelling menggunaka  tiga model yaitu: K-Nearest Neighbor (KNN), Random Forest (RF), dan  Boosting Algorithm.
 -	KKN
 
-        models = pd.DataFrame(index=['train_mse', 'test_mse'], 
+      <sup> <i>
+        models = pd.DataFrame(index=['train_mse', 'test_mse'], columns=['KNN', 'RandomForest', 'Boosting'])</sup>
                       
-                      columns=['KNN', 'RandomForest', 'Boosting'])
-                      
-        from sklearn.neighbors import KNeighborsRegressor
+       <sup>  from sklearn.neighbors import KNeighborsRegressor</sup>
         
-        from sklearn.metrics import mean_squared_error
+       <sup>  from sklearn.metrics import mean_squared_error</sup>
         
-        knn = KNeighborsRegressor(n_neighbors=10)
+       <sup>  knn = KNeighborsRegressor(n_neighbors=10)</sup>
         
-        knn.fit(X_train, y_train)
+       <sup>  knn.fit(X_train, y_train)</sup>
         
-        models.loc['train_mse','knn'] = mean_squared_error(y_pred = knn.predict(X_train), y_true=y_train)
+       <sup> models.loc['train_mse','knn'] = mean_squared_error(y_pred = knn.predict(X_train), y_true=y_train)</i></sup>
 
-pemodelan KKN adalah algoritma yang relatif sederhana dibandingkan dengan algoritma lain sehingga sangat mudah dipahami, namun ia memiliki kekurangan jika dihadapkan pada jumlah fitur atau dimensi yang besar. permasalahan ini muncul ketika jumlah sampel meningkat secara eksponensial seiring dengan jumlah dimensi (fitur) pada data
--	Random Forest
-from sklearn.ensemble import RandomForestRegressor
- 
-RF = RandomForestRegressor(n_estimators=50, max_depth=16, random_state=55, n_jobs=-1)
-RF.fit(X_train, y_train)
- 
-models.loc['train_mse','RandomForest'] = mean_squared_error(y_pred=RF.predict(X_train), y_true=y_train)
+      pemodelan KKN adalah algoritma yang relatif sederhana dibandingkan dengan algoritma lain sehingga sangat mudah dipahami, namun ia memiliki kekurangan jika             dihadapkan pada jumlah fitur atau dimensi yang besar. permasalahan ini muncul ketika jumlah sampel meningkat secara eksponensial seiring dengan jumlah dimensi         (fitur) pada data
+      
+-    Random Forest
 
-random forest adalah salah satu algoritma supervised learning yang dapat digunakan untuk menyelesaikan masalah klasifikasi dan regresi. Random forest juga cukup sederhana tetapi memiliki stabilitas yang mumpuni. Namun random forest  tidak akan memberikan hasil maksimal ketika data yang kita pakai sangat jarang.
--	Boosting Algorithm
-from sklearn.ensemble import AdaBoostRegressor
-boosting = AdaBoostRegressor(learning_rate=0.05, random_state=55)
-boosting.fit(X_train, y_train)
-models.loc['train_mse','Boosting'] = mean_squared_error(y_pred=boosting.predict(X_train), y_true=y_train)
 
-boosting algorithm dapat meningkatkan performa atau akurasi prediksi. Namun hal ini tetap bergantung pada kasus per kasus, ruang lingkup masalah, dan dataset yang digunakan
+      <sub><i>
+      from sklearn.ensemble import RandomForestRegressor </sub>
+        
+      <sub><i> RF = RandomForestRegressor(n_estimators=50, max_depth=16, random_state=55, n_jobs=-1)
+      RF.fit(X_train, y_train) </sub>
+              
+      <sub><i> models.loc['train_mse','RandomForest'] = mean_squared_error(y_pred=RF.predict(X_train), y_true=y_train) </sub></i>
+
+              
+      random forest adalah salah satu algoritma supervised learning yang dapat digunakan untuk menyelesaikan masalah klasifikasi dan regresi. Random forest juga             cukup sederhana tetapi memiliki stabilitas yang mumpuni. Namun random forest  tidak akan memberikan hasil maksimal ketika data yang kita pakai sangat jarang.
+      
+-    Boosting Algorithm
+       
+              
+        <sub><i>from sklearn.ensemble import AdaBoostRegressor</sub>
+                
+        <sub> boosting = AdaBoostRegressor(learning_rate=0.05, random_state=55)</sub>
+                
+        <sub>  boosting.fit(X_train, y_train)</sub>
+                
+        <sub> models.loc['train_mse','Boosting'] = mean_squared_error(y_pred=boosting.predict(X_train), y_true=y_train) </i></sub>
+
+      boosting algorithm dapat meningkatkan performa atau akurasi prediksi. Namun hal ini tetap bergantung pada kasus per kasus, ruang lingkup masalah, dan dataset           yang digunakan
 
 ## Evaluation
 Pada evaluasi model kali ini menggunakan metrik MSE. Untuk menghitung model MSE pada model kita perlu melakukan proses scalling fitur nuerik pada data test gar skala antara data latih dan data uji sama dan kita bisa melakukan evaluasi.
 Untuk proses scaling, perlu menjalankan code berikut:
-X_test.loc[:, numerical_features] = scaler.transform(X_test[numerical_features])
-
+              
+         X_test.loc[:, numerical_features] = scaler.transform(X_test[numerical_features])
+              
+              
 Jika sudah lakukan evaluasi model dengan metrik MSE, yang di dapatkan hasi evaluasi pada data train dan data test berikut:
 
 
