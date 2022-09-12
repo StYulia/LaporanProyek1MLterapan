@@ -35,8 +35,9 @@ Dataset dapat di unduh pada link berikut: [housePrice dataset](https://www.kaggl
 
 - hal pertama yang dilakukan adalah import library yang dibutuhkan
 - lalu melakukan Exploratory Data Analysis, yang bertujuan  untuk mengetahui apakah tipe data pada setiap kolom sudah sesuai atau belum
-- setelah itu menangani missing value jika ada. Pada dataset kali ini terdapat 10 missing value pada kolom room. Karena 10 missing value merupakan jumlah yang kecil jika dibandingkan dengan jumlah total sampel yaitu 3.474. jadi kita hapus saja 10 sampel ini, karena kita akan kehilangan beberapa informasi.
-![This is an image](https://drive.google.com/file/d/1ePbWaDOmj1K6TX0CAGBQjBZk8r-_9Ehp/view?usp=sharing)
+- setelah itu menangani missing value jika ada. Pada dataset kali ini terdapat 10 missing value pada kolom room. Karena 10 missing value merupakan jumlah yang kecil jika dibandingkan dengan jumlah total sampel yaitu 3.474. jadi kita hapus saja 10 sampel ini, karena kita akan kehilangan beberapa informasi. penanganan missing value dapat dilihat seperti pada gambar berikut.
+
+![image](https://drive.google.com/uc?export=view&id=1ePbWaDOmj1K6TX0CAGBQjBZk8r-_9Ehp)
 -	Selanjutnya membagi fitur menjadi dua bagian dengan proses Univariate Analysis. Dengan code :
 numerical_features = [ 'Area', 'Room', 'Price']
 categorical_features = ['Parking', 'Warehouse', 'Elevator']
@@ -72,10 +73,10 @@ Pada tahap modelling menggunaka  tiga model yaitu: K-Nearest Neighbor (KNN), Ran
       <sub><i>
       from sklearn.ensemble import RandomForestRegressor </sub>
         
-      <sub><i> RF = RandomForestRegressor(n_estimators=50, max_depth=16, random_state=55, n_jobs=-1)
+      <sub> RF = RandomForestRegressor(n_estimators=50, max_depth=16, random_state=55, n_jobs=-1)
       RF.fit(X_train, y_train) </sub>
               
-      <sub><i> models.loc['train_mse','RandomForest'] = mean_squared_error(y_pred=RF.predict(X_train), y_true=y_train) </sub></i>
+      <sub>models.loc['train_mse','RandomForest'] = mean_squared_error(y_pred=RF.predict(X_train), y_true=y_train) </sub></i>
 
               
       random forest adalah salah satu algoritma supervised learning yang dapat digunakan untuk menyelesaikan masalah klasifikasi dan regresi. Random forest juga             cukup sederhana tetapi memiliki stabilitas yang mumpuni. Namun random forest  tidak akan memberikan hasil maksimal ketika data yang kita pakai sangat jarang.
@@ -89,7 +90,7 @@ Pada tahap modelling menggunaka  tiga model yaitu: K-Nearest Neighbor (KNN), Ran
                 
         <sub>  boosting.fit(X_train, y_train)</sub>
                 
-        <sub> models.loc['train_mse','Boosting'] = mean_squared_error(y_pred=boosting.predict(X_train), y_true=y_train) </i></sub>
+        <sub> models.loc['train_mse','Boosting'] = mean_squared_error(y_pred=boosting.predict(X_train), y_true=y_train) </sub></i>
 
       boosting algorithm dapat meningkatkan performa atau akurasi prediksi. Namun hal ini tetap bergantung pada kasus per kasus, ruang lingkup masalah, dan dataset           yang digunakan
 
@@ -101,5 +102,16 @@ Untuk proses scaling, perlu menjalankan code berikut:
               
               
 Jika sudah lakukan evaluasi model dengan metrik MSE, yang di dapatkan hasi evaluasi pada data train dan data test berikut:
+            
+            
+            
+ ![image](https://drive.google.com/uc?export=view&id=1wTRtT5a-mZWymu6fL8HW8mgfNYtV7vbw)   
 
+            
+
+ ![image](https://drive.google.com/uc?export=view&id=1PmhjESKzgWM4wl1b7WYxbEd4MoCAfwNW)
+            
+
+Model algoritma Boosting memberikan nilai eror yang paling kecil. Sedangkan model dengan RF memiliki eror yang paling besar. Untuk mengujinya, di buat prediksi menggunakan beberapa harga dari data test dengan hasil pada gambar berikut:
+                    ![image](https://drive.google.com/uc?export=view&id=1h9-dUZsg-QWd-eavWA9KpX07vfdbOHXl)
 
