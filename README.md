@@ -51,9 +51,9 @@ Kita memiiki tiga variable kategori yaitu parking, warehouse, dan elevator. Untu
 Pada tahap modeling menggunaka tiga model yaitu: K-Nearest Neighbor (KNN), Random Forest (RF), dan  Boosting Algorithm.
 -	KKN
 
-      Untuk menentukan titik mana dalam data yang paling mirip dengan input baru KNN menggunakan perhitungan ukuran jarak. pada kasus ini menggunakan nilai k= 10             tetangga dan metric Euclidean untuk mengukur jarak antara titik. Padatahap dilakukan untuk melatih data training dan menyimpan data testing untuk tahap evaluasi       yang akan dibahas di Modul Evaluasi Model       
+      Untuk menentukan titik mana dalam data yang paling mirip dengan input baru KNN menggunakan perhitungan ukuran jarak. pada kasus ini menggunakan nilai k= 10        tetangga dan metric Euclidean untuk mengukur jarak antara titik. Padatahap dilakukan untuk melatih data training dan menyimpan data testing untuk tahap evaluasi       yang akan dibahas di Modul Evaluasi Model       
       
-      Pemodelan KKN adalah algoritma yang relatif sederhana dibandingkan dengan algoritma lain sehingga sangat mudah dipahami, namun ia memiliki kekurangan                   jikadihadapkan pada jumlah fitur atau dimensi yang besar. permasalahan ini muncul ketika jumlah sampel meningkat secara eksponensial seiring dengan jumlah             dimensi (fitur) pada data
+      Pemodelan KKN adalah algoritma yang relatif sederhana dibandingkan dengan algoritma lain sehingga sangat mudah dipahami, namun ia memiliki kekurangan              jikadihadapkan pada jumlah fitur atau dimensi yang besar. permasalahan ini muncul ketika jumlah sampel meningkat secara eksponensial seiring dengan jumlah             dimensi (fitur) pada data
       
 -    Random Forest
 
@@ -61,7 +61,7 @@ Pada tahap modeling menggunaka tiga model yaitu: K-Nearest Neighbor (KNN), Rando
      - n_estimator yaitu jumlah trees (pohon) di forest
      - max_depth yaitukedalaman atau panjang pohon. 
      - random_state yang digunakan untuk mengontrol random number generator 
-     - n_jobs yaitu jumlah job (pekerjaan) yang digunakan secara paralel. pada kasus ini n_jobs di set  dengan -1 yang artinya semua proses berjalan secara        paralel
+     - n_jobs yaitu jumlah job (pekerjaan) yang digunakan secara paralel. pada kasus ini n_jobs di set  dengan -1 yang artinya semua proses berjalan secara      paralel
 
      Random forest adalah salah satu algoritma supervised learning yang dapat digunakan untuk menyelesaikan masalah klasifikasi dan regresi. Random forest juga cukup sederhana tetapi memiliki stabilitas yang mumpuni. Namun random forest  tidak akan memberikan hasil maksimal ketika data yang kita pakai sangat jarang.
       
