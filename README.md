@@ -10,11 +10,10 @@ penelitian agustinus:[FAKTOR-FAKTOR YANG MEMPENGARUHI KONSUMEN DALAM MEMBELI RUM
 ### Problem Statements
 Suatu perusahaan harus selalu survive agar dapat terus bersaing dengan perusahaan-perusahaan sejenis yang sama-sama bergerak dalam bisnis perumahan. Karena banyaknya perusahaan yang bergerak di bidang perumahan, maka perusahaan harus mengenali apa yang mempengaruhi harga jual pada perumahan lain. Jangan sampai kita yang seharusnya mendapat keuntungan karna terdapat kualitas yang bagus pada perumahan kita, kita malah menjualnya dengan harga rendah.
 Berdasarkan kondisi yang telah diuraikan sebelumnya, perusahaan akan mengembangkan sebuah sistem prediksi harga rumah untuk menjawab permasalahan berikut:
-- apa fitur yang paling mempengaruhi harga rumah?
-- Berapa harga rumah pada perusahaan lain dengan karakteristik atau fitur tertentu
+- Fitur apa yang paling mempengaruhi harga rumah?
+
 ### Goals
 - Mengetahui fitur yang paling berkorelasi dengan harga rumah.
-- Membuat model machine learning yang dapat memprediksi harga rumah berdasarkan fitur-fitur yang ada
 
 **Metodologi**
 Prediksi harga adalah tujuan yang ingin dicapai. Seperti yang kita tahu, harga merupakan variabel kontinu. Dalam predictive analytics, saat membuat prediksi variabel kontinu artinya Anda sedang menyelesaikan permasalahan regresi. Oleh karena itu, metodologi pada proyek ini adalah: membangun model regresi dengan harga diamonds sebagai target.
@@ -22,7 +21,7 @@ Prediksi harga adalah tujuan yang ingin dicapai. Seperti yang kita tahu, harga m
 Pengembangan model akan menggunakan beberapa algoritma machine learning yaitu K-Nearest Neighbor, Random Forest, dan Boosting Algorithm. Dari ketiga model ini, akan dipilih satu model yang memiliki nilai kesalahan prediksi terkecil.
 
 ## Data Understanding
-Data yang akan digunakan pada proyek kali ini adalah housePrice dataset. Dataset ini memiliki 3.474 sampel data dengan berbagai kualitas atau karakteristik dan harga. Karakteristik yang dimaksud di sini adalah fitur non-numerik seperti Parking, Warehouse, Elevator, serta fitur numerik seperti Room dan  Area. Kesembilan fitur ini adalah fitur yang akan Anda gunakan dalam menemukan pola pada data, sedangkan harga merupakan fitur target.
+Data yang akan digunakan pada proyek kali ini adalah housePrice dataset. Dataset ini memiliki 3.474 sampel data dengan berbagai kualitas atau karakteristik dan harga. Karakteristik yang dimaksud di sini adalah fitur non-numerik seperti Parking, Warehouse, Elevator, address, serta fitur numerik seperti address, Room dan  Area. Kesembilan fitur ini adalah fitur yang akan Anda gunakan dalam menemukan pola pada data, sedangkan harga merupakan fitur target.
 Adapun uraikanlah seluruh variabel atau fitur pada data, sebagai berikut:
 Parking: adalah keterangan apakah rumah tersebut tersedia tempat parker atau tidak
 Warehouse: berisi informasi apakah rumah terdapat Gudang atau tidak
@@ -30,88 +29,54 @@ Elevator: informasi apakah rumah terdapat tangga  atau tidak
 Room: informasi yang berisi ada berapa ruangan pada rumah tersebut
 Area: informasi mengenai luas bangunan
 Price: informasi harga
+address: berisi informasi tempat rumah tersebut berada
+price(USD): berisi informasi harga dalam USD
 
 Dataset dapat di unduh pada link berikut: [housePrice dataset](https://www.kaggle.com/datasets/mokar2001/house-price-tehran-iran)
 
 - hal pertama yang dilakukan adalah import library yang dibutuhkan
 - lalu melakukan Exploratory Data Analysis, yang bertujuan  untuk mengetahui apakah tipe data pada setiap kolom sudah sesuai atau belum
-- setelah itu menangani missing value jika ada. Pada dataset kali ini terdapat 10 missing value pada kolom room. Karena 10 missing value merupakan jumlah yang kecil jika dibandingkan dengan jumlah total sampel yaitu 3.474. jadi kita hapus saja 10 sampel ini, karena kita akan kehilangan beberapa informasi. penanganan missing value dapat dilihat seperti pada gambar berikut.
-
-![image](https://drive.google.com/uc?export=view&id=1ePbWaDOmj1K6TX0CAGBQjBZk8r-_9Ehp)
+- setelah itu menangani missing value jika ada. Pada dataset kali ini terdapat 10  sampel missing value pada fitur room. Karena 10 data tersebut bernilai 0. untuk mengatasi missing value dilakukan penghapusan sampe pada fitur room yang bernilai 0. mengapa demikian? karena 10 merupakan jumlah yang kecil dibandingkan dengan seluruh sampel yaitu 3.474 jadi kita tidak akan kehilangan banyak informasi
 -	Selanjutnya membagi fitur menjadi dua bagian dengan proses Univariate Analysis. Dengan code :
 numerical_features = [ 'Area', 'Room', 'Price']
 categorical_features = ['Parking', 'Warehouse', 'Elevator']
 -	Melakukan Exploratory Data Analysis, untuk menunjukkan hubungan antara dua atau lebih variabel pada data. Pada kasus kali ini kita melakukan nya pada fitur katagori yaitu parking, warehouse, elevator, dan pada fitur numerik yaitu harga.
 
 ## Data Preparation
--	Kita memiiki tiga variable kategori yaitu parking, warehouse, dan elevator. Untuk melakukan proses encoding fitur kategori agar menjadi variable numerik, salah satu teknik yang umum dilakukan adalah teknik one-hot-encoding
--	Selanjutnya membagi dataset menjadi data train dan data test agar dapat mempertahankan data yang ada menguji seberapa baik generalisasi model terhadap data baru
+Kita memiiki tiga variable kategori yaitu parking, warehouse, dan elevator. Untuk mengubah fitur agar menjadi variable numerik, dilakupan prosesn encoding, salah satu teknik yang umum dilakukan adalah teknik one-hot-encoding
+-	Selanjutnya membagi dataset menjadi data train dan data test agar dapat mempertahankan data yang ada menguji seberapa baik generalisasi model terhadap data baru. pada proyek kali ini menggunakan pembagian proporsi sebesar 90:10 dengan fungsi train_test_split dari sklearn
 -	 Kemudia kita perlu melakukan standarisasi pada data train untuk menghindari kebocoran informasi pada data test
 
 ## Modeling
-Pada tahap modelling menggunaka  tiga model yaitu: K-Nearest Neighbor (KNN), Random Forest (RF), dan  Boosting Algorithm.
+Pada tahap modeling menggunaka tiga model yaitu: K-Nearest Neighbor (KNN), Random Forest (RF), dan  Boosting Algorithm.
 -	KKN
-
-      <sup> <i>
-        models = pd.DataFrame(index=['train_mse', 'test_mse'], columns=['KNN', 'RandomForest', 'Boosting'])</sup>
-                      
-       <sup>  from sklearn.neighbors import KNeighborsRegressor</sup>
-        
-       <sup>  from sklearn.metrics import mean_squared_error</sup>
-        
-       <sup>  knn = KNeighborsRegressor(n_neighbors=10)</sup>
-        
-       <sup>  knn.fit(X_train, y_train)</sup>
-        
-       <sup> models.loc['train_mse','knn'] = mean_squared_error(y_pred = knn.predict(X_train), y_true=y_train)</i></sup>
-
-      pemodelan KKN adalah algoritma yang relatif sederhana dibandingkan dengan algoritma lain sehingga sangat mudah dipahami, namun ia memiliki kekurangan jika             dihadapkan pada jumlah fitur atau dimensi yang besar. permasalahan ini muncul ketika jumlah sampel meningkat secara eksponensial seiring dengan jumlah dimensi         (fitur) pada data
+      Untuk menentukan titik mana dalam data yang paling mirip dengan input baru         KNN menggunakan perhitungan ukuran jarak. pada kasus ini menggunakan nilai k       = 10 tetangga dan metric Euclidean untuk mengukur jarak antara titik. Pada         tahap dilakukan untuk melatih data training dan menyimpan data testing untuk       tahap evaluasi yang akan dibahas di Modul Evaluasi Model       
+      
+      Pemodelan KKN adalah algoritma yang relatif sederhana dibandingkan dengan           algoritma lain sehingga sangat mudah dipahami, namun ia memiliki kekurangan         jikadihadapkan pada jumlah fitur atau dimensi yang besar. permasalahan ini         muncul ketika jumlah sampel meningkat secara eksponensial seiring dengan           jumlah dimensi (fitur) pada data
       
 -    Random Forest
+     Pada algoritma Random Fores menggunakan parameter:
+     - n_estimator yaitu jumlah trees (pohon) di forest
+     - max_depth yaitukedalaman atau panjang pohon. 
+     - random_state yang digunakan untuk mengontrol random number generator 
+     - n_jobs yaitu jumlah job (pekerjaan) yang digunakan secara paralel. pada            kasus ini n_jobs di set  dengan -1 yang artinya semua proses berjalan secara        paralel
 
-
-      <sub><i>
-      from sklearn.ensemble import RandomForestRegressor </sub>
-        
-      <sub> RF = RandomForestRegressor(n_estimators=50, max_depth=16, random_state=55, n_jobs=-1)
-      RF.fit(X_train, y_train) </sub>
-              
-      <sub>models.loc['train_mse','RandomForest'] = mean_squared_error(y_pred=RF.predict(X_train), y_true=y_train) </sub></i>
-
-              
-      random forest adalah salah satu algoritma supervised learning yang dapat digunakan untuk menyelesaikan masalah klasifikasi dan regresi. Random forest juga             cukup sederhana tetapi memiliki stabilitas yang mumpuni. Namun random forest  tidak akan memberikan hasil maksimal ketika data yang kita pakai sangat jarang.
+     Random forest adalah salah satu algoritma supervised learning yang dapat            digunakan untuk menyelesaikan masalah klasifikasi dan regresi. Random forest        juga cukup sederhana tetapi memiliki stabilitas yang mumpuni. Namun random          forest  tidak akan memberikan hasil maksimal ketika data yang kita pakai            sangat jarang.
       
 -    Boosting Algorithm
-       
-              
-        <sub><i>from sklearn.ensemble import AdaBoostRegressor</sub>
-                
-        <sub> boosting = AdaBoostRegressor(learning_rate=0.05, random_state=55)</sub>
-                
-        <sub>  boosting.fit(X_train, y_train)</sub>
-                
-        <sub> models.loc['train_mse','Boosting'] = mean_squared_error(y_pred=boosting.predict(X_train), y_true=y_train) </sub></i>
-
-      boosting algorithm dapat meningkatkan performa atau akurasi prediksi. Namun hal ini tetap bergantung pada kasus per kasus, ruang lingkup masalah, dan dataset           yang digunakan
+     Pada algoritma ini parameter yang digunakan adalah learning_rate yaitu bobot        yang diterapkan pada setiap regressor, dan random_state yang digunakan unruk        mengontrol number generator.
+     
+     Boosting algorithm dapat meningkatkan performa atau akurasi prediksi. Namun        hal ini tetap bergantung pada kasus per kasus, ruang lingkup masalah, dan          dataset yang digunakan. 
+     
+Dari ketiga model yang digunakan, setelah diterapkan pada kasus ini yang            terbaik adalah model Boosting Algorithm, karena meiliki nilai error yang kecil
 
 ## Evaluation
-Pada evaluasi model kali ini menggunakan metrik MSE. Untuk menghitung model MSE pada model kita perlu melakukan proses scalling fitur nuerik pada data test gar skala antara data latih dan data uji sama dan kita bisa melakukan evaluasi.
-Untuk proses scaling, perlu menjalankan code berikut:
-              
-         X_test.loc[:, numerical_features] = scaler.transform(X_test[numerical_features])
-              
-              
-Jika sudah lakukan evaluasi model dengan metrik MSE, yang di dapatkan hasi evaluasi pada data train dan data test berikut:
-            
-            
-            
- ![image](https://drive.google.com/uc?export=view&id=1wTRtT5a-mZWymu6fL8HW8mgfNYtV7vbw)   
+Pada evaluasi model kali ini menggunakan metrik MSE. sebelum menghitung model MSE pada model kita perlu melakukan proses scalling fitur nuerik pada model selesai dilatih dengan 3 algoritma, yaitu KNN, Random Forest, dan Boosting algorithm agar skala antara data latih dan data uji sama dan kita bisa melakukan evaluasi.
+      
+Jika proses scalling selesai, maka selanjutnya dilakukan evaluasi model dengan metrik MSE, yang di dapatkan hasi evaluasi yaitu:
+- Pada model KKN nilai data latih mencapai 1,64 dengan nilai data uji 2,49
+- Pada model RF nilai data latih mencapai 8.0 dengan nilai data uji 2,15
+- Pada model Boosting nilai data latih mencapai 1,81 dengan nilai data uji 2,53
 
-            
-
- ![image](https://drive.google.com/uc?export=view&id=1PmhjESKzgWM4wl1b7WYxbEd4MoCAfwNW)
-            
-
-Model algoritma Boosting memberikan nilai eror yang paling kecil. Sedangkan model dengan RF memiliki eror yang paling besar. Untuk mengujinya, di buat prediksi menggunakan beberapa harga dari data test dengan hasil pada gambar berikut:
-                    ![image](https://drive.google.com/uc?export=view&id=1h9-dUZsg-QWd-eavWA9KpX07vfdbOHXl)
+<b>Sehingga dapat disimpulkan bahwa model algoritma Boosting memberikan nilai eror yang paling kecil. Sedangkan model dengan RF memiliki eror yang paling besar.</b>
 
