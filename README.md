@@ -50,25 +50,27 @@ Kita memiiki tiga variable kategori yaitu parking, warehouse, dan elevator. Untu
 ## Modeling
 Pada tahap modeling menggunaka tiga model yaitu: K-Nearest Neighbor (KNN), Random Forest (RF), dan  Boosting Algorithm.
 -	KKN
-      Untuk menentukan titik mana dalam data yang paling mirip dengan input baru         KNN menggunakan perhitungan ukuran jarak. pada kasus ini menggunakan nilai k       = 10 tetangga dan metric Euclidean untuk mengukur jarak antara titik. Pada         tahap dilakukan untuk melatih data training dan menyimpan data testing untuk       tahap evaluasi yang akan dibahas di Modul Evaluasi Model       
+
+      Untuk menentukan titik mana dalam data yang paling mirip dengan input baru KNN menggunakan perhitungan ukuran jarak. pada kasus ini menggunakan nilai k= 10             tetangga dan metric Euclidean untuk mengukur jarak antara titik. Padatahap dilakukan untuk melatih data training dan menyimpan data testing untuk tahap evaluasi       yang akan dibahas di Modul Evaluasi Model       
       
-      Pemodelan KKN adalah algoritma yang relatif sederhana dibandingkan dengan           algoritma lain sehingga sangat mudah dipahami, namun ia memiliki kekurangan         jikadihadapkan pada jumlah fitur atau dimensi yang besar. permasalahan ini         muncul ketika jumlah sampel meningkat secara eksponensial seiring dengan           jumlah dimensi (fitur) pada data
+      Pemodelan KKN adalah algoritma yang relatif sederhana dibandingkan dengan algoritma lain sehingga sangat mudah dipahami, namun ia memiliki kekurangan                   jikadihadapkan pada jumlah fitur atau dimensi yang besar. permasalahan ini muncul ketika jumlah sampel meningkat secara eksponensial seiring dengan jumlah             dimensi (fitur) pada data
       
 -    Random Forest
+
      Pada algoritma Random Fores menggunakan parameter:
      - n_estimator yaitu jumlah trees (pohon) di forest
      - max_depth yaitukedalaman atau panjang pohon. 
      - random_state yang digunakan untuk mengontrol random number generator 
-     - n_jobs yaitu jumlah job (pekerjaan) yang digunakan secara paralel. pada            kasus ini n_jobs di set  dengan -1 yang artinya semua proses berjalan secara        paralel
+     - n_jobs yaitu jumlah job (pekerjaan) yang digunakan secara paralel. pada kasus ini n_jobs di set  dengan -1 yang artinya semua proses berjalan secara        paralel
 
-     Random forest adalah salah satu algoritma supervised learning yang dapat            digunakan untuk menyelesaikan masalah klasifikasi dan regresi. Random forest        juga cukup sederhana tetapi memiliki stabilitas yang mumpuni. Namun random          forest  tidak akan memberikan hasil maksimal ketika data yang kita pakai            sangat jarang.
+     Random forest adalah salah satu algoritma supervised learning yang dapat digunakan untuk menyelesaikan masalah klasifikasi dan regresi. Random forest juga cukup sederhana tetapi memiliki stabilitas yang mumpuni. Namun random forest  tidak akan memberikan hasil maksimal ketika data yang kita pakai sangat jarang.
       
 -    Boosting Algorithm
-     Pada algoritma ini parameter yang digunakan adalah learning_rate yaitu bobot        yang diterapkan pada setiap regressor, dan random_state yang digunakan unruk        mengontrol number generator.
+     Pada algoritma ini parameter yang digunakan adalah learning_rate yaitu bobot yang diterapkan pada setiap regressor, dan random_state yang digunakan unruk        mengontrol number generator.
      
-     Boosting algorithm dapat meningkatkan performa atau akurasi prediksi. Namun        hal ini tetap bergantung pada kasus per kasus, ruang lingkup masalah, dan          dataset yang digunakan. 
+     Boosting algorithm dapat meningkatkan performa atau akurasi prediksi. Namun hal ini tetap bergantung pada kasus per kasus, ruang lingkup masalah, dan          dataset yang digunakan. 
      
-Dari ketiga model yang digunakan, setelah diterapkan pada kasus ini yang            terbaik adalah model Boosting Algorithm, karena meiliki nilai error yang kecil
+Dari ketiga model yang digunakan, setelah diterapkan pada kasus ini yang terbaik adalah model Boosting Algorithm, karena meiliki nilai error yang kecil
 
 ## Evaluation
 Pada evaluasi model kali ini menggunakan metrik MSE. sebelum menghitung model MSE pada model kita perlu melakukan proses scalling fitur nuerik pada model selesai dilatih dengan 3 algoritma, yaitu KNN, Random Forest, dan Boosting algorithm agar skala antara data latih dan data uji sama dan kita bisa melakukan evaluasi.
