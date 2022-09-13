@@ -24,21 +24,15 @@ Pengembangan model akan menggunakan beberapa algoritma machine learning yaitu K-
 Data yang akan digunakan pada proyek kali ini adalah housePrice dataset. Dataset ini memiliki 3.474 sampel data dengan berbagai kualitas atau karakteristik dan harga. Karakteristik yang dimaksud di sini adalah fitur non-numerik seperti Parking, Warehouse, Elevator, address, serta fitur numerik seperti address, Room dan  Area. Kesembilan fitur ini adalah fitur yang akan Anda gunakan dalam menemukan pola pada data, sedangkan harga merupakan fitur target.
 Adapun uraikanlah seluruh variabel atau fitur pada data, sebagai berikut:
 
-Parking: adalah keterangan apakah rumah tersebut tersedia tempat parker atau tidak
+- Parking: adalah keterangan apakah rumah tersebut tersedia tempat parker atau tidak
 
-Warehouse: berisi informasi apakah rumah terdapat Gudang atau tidak
-
-Elevator: informasi apakah rumah terdapat tangga  atau tidak
-
-Room: informasi yang berisi ada berapa ruangan pada rumah tersebut
-
-Area: informasi mengenai luas bangunan
-
-Price: informasi harga
-
-address: berisi informasi tempat rumah tersebut berada
-
-price(USD): berisi informasi harga dalam USD
+- Warehouse: berisi informasi apakah rumah terdapat Gudang atau tidak
+- Elevator: informasi apakah rumah terdapat tangga  atau tidak
+- Room: informasi yang berisi ada berapa ruangan pada rumah tersebut
+- Area: informasi mengenai luas bangunan
+- Price: informasi harga
+- address: berisi informasi tempat rumah tersebut berada
+- price(USD): berisi informasi harga dalam USD
 
 Dataset dapat di unduh pada link berikut: [housePrice dataset](https://www.kaggle.com/datasets/mokar2001/house-price-tehran-iran)
 
@@ -51,9 +45,11 @@ categorical_features = ['Parking', 'Warehouse', 'Elevator']
 -	Melakukan Exploratory Data Analysis, untuk menunjukkan hubungan antara dua atau lebih variabel pada data. Pada kasus kali ini kita melakukan nya pada fitur katagori yaitu parking, warehouse, elevator, dan pada fitur numerik yaitu harga.
 
 ## Data Preparation
-Kita memiiki tiga variable kategori yaitu parking, warehouse, dan elevator. Untuk mengubah fitur agar menjadi variable numerik, dilakupan prosesn encoding, salah satu teknik yang umum dilakukan adalah teknik one-hot-encoding
--	Selanjutnya membagi dataset menjadi data train dan data test agar dapat mempertahankan data yang ada menguji seberapa baik generalisasi model terhadap data baru. pada proyek kali ini menggunakan pembagian proporsi sebesar 90:10 dengan fungsi train_test_split dari sklearn
--	 Kemudia kita perlu melakukan standarisasi pada data train untuk menghindari kebocoran informasi pada data test
+- Untuk mengubah fitur agar menjadi variable numerik, dilakukan proses encoding dengan teknik one-hot-encoding pada data parking, warehouse, dan elevator. 
+
+- Selanjutnya membagi dataset menjadi data train dan data test agar dapat mempertahankan data yang ada menguji seberapa baik generalisasi model terhadap data baru. pada proyek kali ini menggunakan pembagian proporsi sebesar 90:10 dengan fungsi train_test_split dari sklearn
+
+- Kemudia kita perlu melakukan standarisasi pada data train untuk menghindari kebocoran informasi pada data test
 
 ## Modeling
 Pada tahap modeling menggunaka tiga model yaitu: K-Nearest Neighbor (KNN), Random Forest (RF), dan  Boosting Algorithm.
@@ -66,9 +62,9 @@ Pada tahap modeling menggunaka tiga model yaitu: K-Nearest Neighbor (KNN), Rando
 -    Random Forest
 
      Pada algoritma Random Fores menggunakan parameter:
-     - n_estimator yaitu jumlah trees (pohon) di forest
-     - max_depth yaitukedalaman atau panjang pohon. 
-     - random_state yang digunakan untuk mengontrol random number generator 
+     - n_estimator yaitu jumlah trees (pohon) di forest dengan nilai n_estimator=50
+     - max_depth yaitukedalaman atau panjang pohon dengan nilai max_depth=16. 
+     - random_state=55 yang digunakan untuk mengontrol random number generator. 
      - n_jobs yaitu jumlah job (pekerjaan) yang digunakan secara paralel. pada kasus ini n_jobs di set  dengan -1 yang artinya semua proses berjalan secara paralel
 
      Random forest adalah salah satu algoritma supervised learning yang dapat digunakan untuk menyelesaikan masalah klasifikasi dan regresi. Random forest juga cukup sederhana tetapi memiliki stabilitas yang mumpuni. Namun random forest  tidak akan memberikan hasil maksimal ketika data yang kita pakai sangat jarang.
@@ -84,9 +80,16 @@ Dari ketiga model yang digunakan, setelah diterapkan pada kasus ini yang terbaik
 Pada evaluasi model kali ini menggunakan metrik MSE. sebelum menghitung model MSE pada model kita perlu melakukan proses scalling fitur nuerik pada model selesai dilatih dengan 3 algoritma, yaitu KNN, Random Forest, dan Boosting algorithm agar skala antara data latih dan data uji sama dan kita bisa melakukan evaluasi.
       
 Jika proses scalling selesai, maka selanjutnya dilakukan evaluasi model dengan metrik MSE, yang di dapatkan hasi evaluasi yaitu:
+
+![image](https://drive.google.com/uc?export=view&id=1PmhjESKzgWM4wl1b7WYxbEd4MoCAfwNW)
+
 - Pada model KKN nilai data latih mencapai 1,64 dengan nilai data uji 2,49
 - Pada model RF nilai data latih mencapai 8.0 dengan nilai data uji 2,15
 - Pada model Boosting nilai data latih mencapai 1,81 dengan nilai data uji 2,53
 
-<b>Sehingga dapat disimpulkan bahwa model algoritma Boosting memberikan nilai eror yang paling kecil. Sedangkan model dengan RF memiliki eror yang paling besar.</b>
+untuk mengujinya, mari dibuat prediksi menggunakan beberapa harga dari data test dengan hasil berikut:
+
+![image](https://drive.google.com/uc?export=view&id=1Lmb_WGcGlkyVtLFQPFrqr3crzUzNp93u)
+
+<b>Sehingga dapat disimpulkan bahwa model algoritma Boosting memberikan nilai eror yang paling kecil. Model inilah yang akan kita pilih sebagai model terbaik untuk melakukan prediksi harga rumah.</b>
 
